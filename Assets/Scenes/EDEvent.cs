@@ -9,6 +9,10 @@ public class EDEvent : MonoBehaviour
     public Queue<int> symbolsQueue;
     public int[] symbolsArray;
 
+
+    public bool CorrectOrderFlag;
+
+
     public RawImage image1;
     public RawImage image2;
     public RawImage image3;
@@ -32,6 +36,9 @@ public class EDEvent : MonoBehaviour
 
     void Start()
     {
+
+        CorrectOrderFlag = false;
+
         SwipeDetector.OnSwipe += SwipeDetector_OnSwipe;
         symbolsQueue = new Queue<int>();
         icons = new Dictionary<int, Texture2D>();
@@ -80,12 +87,18 @@ public class EDEvent : MonoBehaviour
             else
             {
                 Debug.Log("correct order");
+
+                CorrectOrderFlag = true;
+
                 fillQueue();
             }
         }
 
         else
         {
+
+            CorrectOrderFlag = false;
+
             symbolsQueue.Clear();
             Debug.Log("wrong order");
             fillQueue();
