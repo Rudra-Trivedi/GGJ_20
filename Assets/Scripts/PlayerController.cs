@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Diagnostics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,11 +27,17 @@ public class PlayerController : MonoBehaviour
 
     private EDEvent eDEvent;
 
- 
+    private bool buttonIsDown = false;
+
+    Stopwatch timer;
+
+    public Text score;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        timer = new Stopwatch();
         eDEvent = ControlCanvas.GetComponent<EDEvent>();
 
         ControlCanvas.SetActive(false);
@@ -46,8 +54,22 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
-        if(EDCountdown<=0)
+    {
+        score.text = "Score: " + (timer.ElapsedTicks/100000);
+        foreach (Touch touch in Input.touches)
+        {
+            if (touch.phase == TouchPhase.Began)
+            {
+                ButtonIsDown();
+            }
+            else if(touch.phase == TouchPhase.Ended)
+            {
+                ButtonIsNotDown();
+            }
+        }
+
+        
+        if (EDCountdown<=0)
         {
             YUp = this.transform.position.y;
             EDFlag = true;
@@ -58,7 +80,8 @@ public class PlayerController : MonoBehaviour
         if (!EDFlag)
         {
             ControlCanvas.SetActive(false);
-            this.transform.Translate(transform.up * ElevatorSpeed * Time.deltaTime);
+            if(buttonIsDown)
+                this.transform.Translate(transform.up * ElevatorSpeed * Time.deltaTime);
             if(this.transform.position.y >= YUp)
             {
                 MainCamera.transform.parent = this.gameObject.transform;
@@ -69,9 +92,8 @@ public class PlayerController : MonoBehaviour
         }
         else if(EDFlag)
         {
-
-            this.gameObject.transform.DetachChildren();
-
+            ButtonIsNotDown();
+            MainCamera.transform.parent = null;
             this.transform.Translate(transform.up * DownSpeed * Time.deltaTime * -1);
 
          
@@ -112,5 +134,16 @@ public class PlayerController : MonoBehaviour
             EDCountdown--;
     }
 
-   
+    public void ButtonIsDown()
+    {
+        buttonIsDown = true;
+        timer.Start();
+    }
+    public void ButtonIsNotDown()
+    {
+        buttonIsDown = false;
+        timer.Stop();
+    }
+
+
 }
