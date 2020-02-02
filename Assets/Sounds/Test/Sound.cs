@@ -39,7 +39,7 @@ public class Sound : MonoBehaviour
     {
         totalTime += Time.deltaTime;
         //float currentDivis = Mathf.Floor(totalTime / 4.00f);
-
+        /*
         if(Input.GetKeyDown("up")) //when ED happens
         {
             PlayED();
@@ -51,7 +51,7 @@ public class Sound : MonoBehaviour
             PlayMain();
             StopED();
         }
-        /*
+        
 
         if(totalTime >= 4.00f)
         {
