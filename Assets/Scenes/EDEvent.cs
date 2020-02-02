@@ -34,6 +34,8 @@ public class EDEvent : MonoBehaviour
 
     Dictionary<int, Texture2D> icons;
 
+    int edCount;
+
     void Start()
     {
 
@@ -52,7 +54,9 @@ public class EDEvent : MonoBehaviour
         icons.Add(8, arrow_up);
         icons.Add(9, arrow_left);
         icons.Add(10, arrow_right);
+        edCount++;
         fillQueue();
+
     }
 
     void Update()
@@ -87,7 +91,7 @@ public class EDEvent : MonoBehaviour
             else
             {
                 Debug.Log("correct order");
-
+                edCount++;
                 fillQueue();
                 CorrectOrderFlag = true;
 
@@ -110,7 +114,8 @@ public class EDEvent : MonoBehaviour
 
     void fillQueue()
     {
-        for(int i = 0; i < 6; i++)
+        
+        for(int i = 0; i < edCount; i++)
         {
             symbolsQueue.Enqueue(Random.Range(1, 11));
             
@@ -120,9 +125,24 @@ public class EDEvent : MonoBehaviour
         button1.SetActive(true);
         button2.SetActive(true);
         button3.SetActive(true);
-        image1.texture = icons[symbolsArray[0]];
-        image2.texture = icons[symbolsArray[1]];
-        image3.texture = icons[symbolsArray[2]];
+        if (symbolsArray.Length > 2)
+        {
+            image1.texture = icons[symbolsArray[0]];
+            image2.texture = icons[symbolsArray[1]];
+            image3.texture = icons[symbolsArray[2]];
+        }
+        else if (symbolsArray.Length == 2)
+        {
+            image1.texture = icons[symbolsArray[0]];
+            image2.texture = icons[symbolsArray[1]];
+            button3.SetActive(false);
+        }
+        else if (symbolsArray.Length == 1)
+        {
+            image1.texture = icons[symbolsArray[0]];
+            button2.SetActive(false);
+            button3.SetActive(false);
+        }
 
     }
 

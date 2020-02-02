@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
         ControlCanvas.SetActive(false);
 
-        EDCountdown = 4 * UnityEngine.Random.Range(2, 4);
+        EDCountdown = 4 * UnityEngine.Random.Range(1, 3);
       
         EDFlag = false;
         InvokeRepeating("CountDownFunction", 1f, 1f);
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
     {
         ControlCanvas.SetActive(true);
         
-        EDCountdown = 4 * UnityEngine.Random.Range(2, 4);  
+        EDCountdown = 4 * UnityEngine.Random.Range(1, 3);  
 
 
     }
