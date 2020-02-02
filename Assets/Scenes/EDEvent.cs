@@ -88,23 +88,24 @@ public class EDEvent : MonoBehaviour
             {
                 Debug.Log("correct order");
 
+                fillQueue();
                 CorrectOrderFlag = true;
 
-                fillQueue();
             }
         }
 
         else
         {
 
-            CorrectOrderFlag = false;
 
             symbolsQueue.Clear();
             Debug.Log("wrong order");
             fillQueue();
-            
+            CorrectOrderFlag = false;
+
+
         }
-            
+
     }
 
     void fillQueue()

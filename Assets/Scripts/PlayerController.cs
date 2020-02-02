@@ -78,6 +78,13 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        if (eDEvent.CorrectOrderFlag == true)
+        {
+            EDFlag = false;
+            eDEvent.CorrectOrderFlag = false;
+
+        }
+
         Death();
 
     }
@@ -93,12 +100,9 @@ public class PlayerController : MonoBehaviour
     private void EDEvent()
     {
         ControlCanvas.SetActive(true);
-        if(eDEvent.CorrectOrderFlag == true)
-        {
-            EDFlag = false;
-            eDEvent.CorrectOrderFlag = false;
-        }
-        EDCountdown = 4 * UnityEngine.Random.Range(2, 4);       
+        
+        EDCountdown = 4 * UnityEngine.Random.Range(2, 4);  
+
 
     }
 
