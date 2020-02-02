@@ -108,7 +108,8 @@ public class PlayerController : MonoBehaviour
 
     void CountDownFunction()
     {
-        EDCountdown--;
+        if(EDFlag == false)
+            EDCountdown--;
     }
 
    
